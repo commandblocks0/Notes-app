@@ -3,6 +3,7 @@ const categories = JSON.parse(localStorage.getItem('notes')) || {};
 function renderCategories(activeCategory) {
     const container = document.querySelector('.category-container');
     container.innerHTML = '';
+    let categoryIndex=0
     for (const category in categories) {
         const div = document.createElement('div');
         div.className = 'category';
@@ -12,10 +13,17 @@ function renderCategories(activeCategory) {
         if (category === activeCategory) {
             div.classList.add('open');
         }
+        
+        div.style.animationDelay = categoryIndex*100+"ms"
+        categoryIndex++
+        
+        const notesWrapper = document.createElement('div')
+        notesWrapper.className = 'notes-wrapper'
+        div.appendChild(notesWrapper)
 
         const notesContainer = document.createElement('div');
         notesContainer.className = 'notes-container';
-        div.appendChild(notesContainer);
+        notesWrapper.appendChild(notesContainer);
 
         const addNoteButton = document.createElement('button');
         addNoteButton.className = 'add-note-button';
@@ -71,8 +79,14 @@ function renderCategories(activeCategory) {
         }
 
         div.addEventListener('click', (e) => {
-            document.querySelectorAll('.category').forEach(i => i !== div && i.classList.remove('open'));
+            document.querySelectorAll('.category').forEach(i => {if (i !== div) {i.classList.remove('open'); i.querySelector('.notes-wrapper').style.maxHeight = '0'}});
             div.classList.toggle('open');
+            
+            if (div.classList.contains("open")) {
+                notesWrapper.style.maxHeight = notesWrapper.scrollHeight +"px"
+            } else {
+                notesWrapper.style.maxHeight = "0"
+            }
         })
 
         div.addEventListener('contextmenu', (e) => {
