@@ -9,10 +9,6 @@ function renderCategories(activeCategory) {
         div.className = 'category';
         container.appendChild(div);
         div.textContent = category;
-
-        if (category === activeCategory) {
-            div.classList.add('open');
-        }
         
         div.style.animationDelay = categoryIndex*100+"ms"
         categoryIndex++
@@ -72,14 +68,26 @@ function renderCategories(activeCategory) {
                     if (confirmDelete) {
                         categories[category].splice(i, 1);
                         localStorage.setItem('notes', JSON.stringify(categories));
-                        renderCategories();
+                        renderCategories(category);
                     }
                 }
             })
         }
 
+        if (category === activeCategory) {
+            div.classList.add('open');
+            notesWrapper.style.maxHeight = notesWrapper.scrollHeight +"px"
+        }
+
+        let clickTimer
         div.addEventListener('click', (e) => {
-            document.querySelectorAll('.category').forEach(i => {if (i !== div) {i.classList.remove('open'); i.querySelector('.notes-wrapper').style.maxHeight = '0'}});
+            document.querySelectorAll('.category').forEach(i => {
+                if (i !== div) {
+                    i.classList.remove('open')
+                    i.querySelector('.notes-wrapper').style.maxHeight = '0'
+                }
+            });
+            
             div.classList.toggle('open');
             
             if (div.classList.contains("open")) {
@@ -89,8 +97,8 @@ function renderCategories(activeCategory) {
             }
         })
 
-        div.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
+        div.addEventListener('dblclick', (e) => {
+            clearTimeout(clickTimer)
             const name = prompt('Enter new category name:', category);
             if (name.trim()) {
                 categories[name] = categories[category];

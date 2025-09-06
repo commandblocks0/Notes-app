@@ -37,5 +37,15 @@ document.addEventListener('touchstart', (e) => {
 document.addEventListener('touchend', (e) => {
     if (e.changedTouches[0].clientY - dragStartY > 50) {
         window.location.href = 'index.html';
+    } else if (e.changedTouches[0].clientX - dragStartX < -50) {
+        if (sessionNote < categories[sessionCategory].length-1) {
+            sessionStorage.setItem('note', Number(sessionNote)+1)
+            window.location.href = 'note.html';
+        }
+    } else if (e.changedTouches[0].clientX - dragStartX > 50) {
+        if (sessionNote > 0) {
+            sessionStorage.setItem('note', Number(sessionNote)-1)
+            window.location.href = 'note.html';
+        }
     }
 })
