@@ -80,7 +80,7 @@ noteContent.addEventListener('input', () => {
         localStorage.setItem('notes', JSON.stringify(categories));
     } catch {
         alert('Error')
-        window.location.href = 'index.html';
+        window.location.href = '/';
     }
 });
 
@@ -92,7 +92,12 @@ document.addEventListener('touchstart', (e) => {
 
 document.addEventListener('touchend', (e) => {
     if (e.changedTouches[0].clientY - dragStartY > 50) {
-        window.location.href = 'index.html';
+        mainWindow.style.animation = 'none'
+        mainWindow.offsetWidth
+        mainWindow.style.animation = 'slideDown 1s'
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000);
     } else if (e.changedTouches[0].clientX - dragStartX < -50) {
         moveNote('right')
     } else if (e.changedTouches[0].clientX - dragStartX > 50) {

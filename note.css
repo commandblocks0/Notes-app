@@ -83,3 +83,10 @@ input:focus {
         opacity: 0;
     }
 }
+
+@keyframes slideDown {
+    to {
+        translate: 0 50vh;
+        opacity: 0;
+    }
+}
