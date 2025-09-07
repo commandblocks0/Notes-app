@@ -8,11 +8,22 @@
     <script src="note.js" defer></script>
 </head>
 <body>
-    <header>
-        <input class="note-name" maxlength="20" type="text" value="Untitled">
-    </header>
-    <main>
-        <textarea class="note-content"></textarea>
-    </main>
+    <div class="main">
+        <header>
+            <input class="note-name" maxlength="20" type="text" value="Untitled">
+        </header>
+        <main>
+            <textarea class="note-content"></textarea>
+        </main>
+    </div>
+
+    <div class="secondary">
+        <header>
+            <input readonly class="note-name" maxlength="20" type="text" value="Untitled">
+        </header>
+        <main>
+            <textarea readonly class="note-content"></textarea>
+        </main>
+    </div>
 </body>
 </html>

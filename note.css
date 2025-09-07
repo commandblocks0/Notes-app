@@ -4,10 +4,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 1rem;
-    display: flex;
-    flex-direction: column;
     height: 100vh;
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 header {
@@ -53,4 +58,28 @@ input {
 
 input:focus {
     outline: none;
+}
+
+.secondary {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+    pointer-events: none;
+    animation: slide 1s;
+}
+
+@keyframes slide {
+    to {
+        translate: 0 0;
+    }
+}
+
+@keyframes fade {
+    to {
+        opacity: 0;
+    }
 }
