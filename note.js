@@ -13,7 +13,13 @@ let sessionCategory = sessionStorage.getItem('category');
 noteName.value = categories[sessionCategory][sessionNote].name || 'Untitled';
 noteContent.value = categories[sessionCategory][sessionNote].content || '';
 
+let moveNoteTimeout;
 function moveNote(direction) {
+    secondaryWindow.style.display = 'none';
+    mainWindow.style.animation = 'none'
+    mainWindow.offsetWidth
+    if (moveNoteTimeout) clearTimeout(moveNoteTimeout);
+    
     if (direction === 'left') {
         if (sessionNote > 0) {
             secondaryWindow.style.translate = '-100vw 0'
@@ -29,7 +35,7 @@ function moveNote(direction) {
             secondaryName.value = categories[sessionCategory][sessionNote].name;
             secondaryContent.value = categories[sessionCategory][sessionNote].content;
 
-            setTimeout(() => {
+            moveNoteTimeout = setTimeout(() => {
                 secondaryWindow.style.display = 'none';
                 noteName.value = secondaryName.value;
                 noteContent.value = secondaryContent.value;
@@ -50,7 +56,7 @@ function moveNote(direction) {
             secondaryName.value = categories[sessionCategory][sessionNote].name;
             secondaryContent.value = categories[sessionCategory][sessionNote].content;
 
-            setTimeout(() => {
+            moveNoteTimeout = setTimeout(() => {
                 secondaryWindow.style.display = 'none';
                 noteName.value = secondaryName.value;
                 noteContent.value = secondaryContent.value;
@@ -94,10 +100,10 @@ document.addEventListener('touchend', (e) => {
     if (e.changedTouches[0].clientY - dragStartY > 50) {
         mainWindow.style.animation = 'none'
         mainWindow.offsetWidth
-        mainWindow.style.animation = 'slideDown 1s'
+        mainWindow.style.animation = 'slideDown .5s forwards'
         setTimeout(() => {
             window.location.href = '/';
-        }, 1000);
+        }, 500);
     } else if (e.changedTouches[0].clientX - dragStartX < -50) {
         moveNote('right')
     } else if (e.changedTouches[0].clientX - dragStartX > 50) {

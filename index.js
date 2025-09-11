@@ -9,6 +9,7 @@ function renderCategories(activeCategory) {
         div.className = 'category';
         container.appendChild(div);
         div.textContent = category;
+        div.draggable = true
         
         div.style.animationDelay = categoryIndex*100+"ms"
         categoryIndex++

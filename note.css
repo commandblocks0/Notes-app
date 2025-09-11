@@ -13,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    animation: scale .5s;
 }
 
 header {
@@ -88,5 +89,14 @@ input:focus {
     to {
         translate: 0 50vh;
         opacity: 0;
+    }
+}
+
+@keyframes scale {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
     }
 }
